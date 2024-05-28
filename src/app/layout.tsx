@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "@/components/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AllContexts from "@/contexts/AllContexts";
 
 import { cn } from "@/lib/utils";
 
@@ -37,7 +38,9 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <AllContexts>{children}</AllContexts>
+            </SessionProvider>
             <Toaster />
           </ThemeProvider>
         </QueryClientProvider>

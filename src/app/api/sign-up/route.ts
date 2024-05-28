@@ -78,7 +78,11 @@ export async function POST(request: Request): Promise<Response> {
       email,
       password: "Awaiting Verification",
       verifyToken: verifyCode,
-      verifyTokenExpiry
+      verifyTokenExpiry,
+      pagePermissions: {
+        user: ["dashboard"],
+        admin: []
+      }
     });
 
     // Save the new user
