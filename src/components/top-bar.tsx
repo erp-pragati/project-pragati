@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "./ui/label";
 import MyProfileDialog from "./my-profile-dialog";
+import Icon from "./icon-helper";
 
 function TopBar() {
   // Load the theme, router and session
@@ -74,7 +75,8 @@ function TopBar() {
         </SheetContent>
       </Sheet>
       <div className="w-full flex-1">
-        <form>
+        {/* <Icon name="LoaderCircle" size={30} className="animate-spin" /> */}
+        {/* <form>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
@@ -83,7 +85,7 @@ function TopBar() {
               className="w-full appearance-none bg-background pl-8 shadow-none md:w-2/3 lg:w-1/3"
             />
           </div>
-        </form>
+        </form> */}
       </div>
       <Dialog>
         <DropdownMenu>
