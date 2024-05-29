@@ -5,8 +5,6 @@ import { auth } from "@/auth";
 
 export async function GET(request: Request) {
   let url = request.url;
-  // Connect to the database
-  await dbConnect();
 
   // Read User session (Authentication)
   const session = await auth();
@@ -22,6 +20,9 @@ export async function GET(request: Request) {
   }
 
   // const allPagePermissions = session?.user.pagePermissions;
+
+  // Connect to the database
+  await dbConnect();
 
   try {
     // Extract the username from the query parameters

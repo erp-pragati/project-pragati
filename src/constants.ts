@@ -32,13 +32,13 @@ export const ALL_SIDEBAR_OPTIONS: SidebarOption[] = [
       {
         id: "masters_user",
         name: "User Master",
-        url: "dashboard/masters/user",
+        url: "/dashboard/masters/user",
         icon: "Users"
       },
       {
         id: "masters_office",
         name: "Office Master",
-        url: "dashboard/masters/office",
+        url: "/dashboard/masters/office",
         icon: "Building"
       }
     ]
