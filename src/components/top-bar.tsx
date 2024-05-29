@@ -36,10 +36,12 @@ import {
 import { Label } from "./ui/label";
 import MyProfileDialog from "./my-profile-dialog";
 import Icon from "./icon-helper";
+import { useIsFetching } from "@tanstack/react-query";
 
 function TopBar() {
   // Load the theme, router and session
   const { userContext, setUserContext } = useUserContext();
+  const globalIsLoading = useIsFetching({ queryKey: ["initial-load"] });
   const { theme, setTheme } = useTheme();
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
@@ -75,7 +77,9 @@ function TopBar() {
         </SheetContent>
       </Sheet>
       <div className="w-full flex-1">
-        {/* <Icon name="LoaderCircle" size={30} className="animate-spin" /> */}
+        {globalIsLoading > 0 && (
+          <Icon name="LoaderCircle" size={30} className="animate-spin" />
+        )}
         {/* <form>
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />

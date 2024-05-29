@@ -1,11 +1,27 @@
 import { dbConnect } from "@/lib/dbConfig";
 import UserModel from "@/models/User.model";
 import { ApiResponse } from "@/types/ApiResponse";
+import { auth } from "@/auth";
 
 export async function GET(request: Request) {
   let url = request.url;
   // Connect to the database
   await dbConnect();
+
+  // Read User session (Authentication)
+  const session = await auth();
+
+  // If the session doesn't exist, throw an error
+  if (!session) {
+    const response: ApiResponse = {
+      success: false,
+      message: "Unauthenticated User",
+      statusCode: 401
+    };
+    return Response.json(response);
+  }
+
+  // const allPagePermissions = session?.user.pagePermissions;
 
   try {
     // Extract the username from the query parameters

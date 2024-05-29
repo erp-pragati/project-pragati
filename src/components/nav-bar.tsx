@@ -10,6 +10,7 @@ import Link from "next/link";
 import { filterSidebarOptions } from "@/app/dashboard/actions";
 import { ALL_SIDEBAR_OPTIONS } from "@/constants";
 import Icon from "./icon-helper";
+import { Separator } from "@/components/ui/separator";
 
 function Navbar({
   pagePermissions
@@ -38,55 +39,60 @@ function Navbar({
         {filteredSidebarOptions.map((sidebarItem, index) => {
           if (sidebarItem.subMenu) {
             return (
-              <AccordionItem key={sidebarItem.id} value={`item-${index}`}>
-                <AccordionTrigger
-                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  // {
-                  //   sidebarItem.selected
-                  //     ? "flex w-full items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-                  //     : "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  // }
-                >
-                  <Icon name={sidebarItem.icon} />
-                  {sidebarItem.name}
-                </AccordionTrigger>
-                <AccordionContent className="mt-2 flex flex-col gap-2">
-                  {sidebarItem.subMenu.map((subMenu) => {
-                    return (
-                      <Link
-                        href={subMenu.url || ""}
-                        key={subMenu.id}
-                        className="flex items-center gap-3 rounded-lg px-10 py-2 text-muted-foreground transition-all hover:text-primary"
-                        // {
-                        //   subMenu.selected
-                        //     ? "flex items-center gap-3 rounded-lg bg-muted px-10 py-2 text-primary transition-all hover:text-primary"
-                        //     : "flex items-center gap-3 rounded-lg px-10 py-2 text-muted-foreground transition-all hover:text-primary"
-                        // }
-                      >
-                        <Icon name={subMenu.icon} />
-                        {subMenu.name}
-                      </Link>
-                    );
-                  })}
-                </AccordionContent>
-              </AccordionItem>
+              <React.Fragment key={sidebarItem.id}>
+                <AccordionItem value={`item-${index}`}>
+                  <AccordionTrigger
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    // {
+                    //   sidebarItem.selected
+                    //     ? "flex w-full items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                    //     : "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                    // }
+                  >
+                    <Icon name={sidebarItem.icon} />
+                    {sidebarItem.name}
+                  </AccordionTrigger>
+                  <AccordionContent className="mt-2 flex flex-col gap-2">
+                    {sidebarItem.subMenu.map((subMenu) => {
+                      return (
+                        <Link
+                          href={subMenu.url || ""}
+                          key={subMenu.id}
+                          className="flex items-center gap-3 rounded-lg px-10 py-2 text-muted-foreground transition-all hover:text-primary"
+                          // {
+                          //   subMenu.selected
+                          //     ? "flex items-center gap-3 rounded-lg bg-muted px-10 py-2 text-primary transition-all hover:text-primary"
+                          //     : "flex items-center gap-3 rounded-lg px-10 py-2 text-muted-foreground transition-all hover:text-primary"
+                          // }
+                        >
+                          <Icon name={subMenu.icon} />
+                          {subMenu.name}
+                        </Link>
+                      );
+                    })}
+                  </AccordionContent>
+                </AccordionItem>
+                <Separator />
+              </React.Fragment>
             );
           }
           if (sidebarItem.url) {
             return (
-              <Link
-                href={sidebarItem.url}
-                key={sidebarItem.id}
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                // {
-                //   sidebarItem.selected
-                //     ? "flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
-                //     : "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                // }
-              >
-                <Icon name={sidebarItem.icon} />
-                {sidebarItem.name}
-              </Link>
+              <React.Fragment key={sidebarItem.id}>
+                <Link
+                  href={sidebarItem.url}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  // {
+                  //   sidebarItem.selected
+                  //     ? "flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-primary transition-all hover:text-primary"
+                  //     : "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                  // }
+                >
+                  <Icon name={sidebarItem.icon} />
+                  {sidebarItem.name}
+                </Link>
+                <Separator />
+              </React.Fragment>
             );
           }
         })}

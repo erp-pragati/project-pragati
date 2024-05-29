@@ -27,7 +27,6 @@ const providers: Provider[] = [
     },
     authorize: async (credentials) => {
       let user = null;
-      console.log(credentials);
 
       // If the credentials are not provided, throw an error
       if (!credentials || !credentials.username || !credentials.password) {
@@ -46,8 +45,6 @@ const providers: Provider[] = [
         const fetchedUser = await User.findOne({
           $or: [{ username: username }, { email: username }]
         });
-
-        console.log(fetchedUser);
 
         // If there is no fetchedUser, throw an error
         if (!fetchedUser) {
@@ -109,6 +106,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.fullName = user.fullName;
         token.username = user.username;
         token.isVerified = user.isVerified;
+        token.pagePermissions = user.pagePermissions;
       }
       return token;
     },
@@ -119,6 +117,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.fullName = token.fullName;
         session.user.username = token.username;
         session.user.isVerified = token.isVerified;
+        session.user.pagePermissions = token.pagePermissions;
       }
       return session;
     }

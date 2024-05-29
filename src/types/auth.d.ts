@@ -8,6 +8,10 @@ declare module "next-auth" {
     username: string;
     fullName: string;
     isVerified: boolean;
+    pagePermissions: {
+      admin: [string] | [];
+      user: [string] | [];
+    };
   }
 
   interface Session {
@@ -16,6 +20,10 @@ declare module "next-auth" {
       username: string;
       fullName: string;
       isVerified: boolean;
+      pagePermissions: {
+        admin: [string] | [];
+        user: [string] | [];
+      };
     } & DefaultSession["user"];
   }
 }
@@ -26,5 +34,9 @@ declare module "next-auth/jwt" {
     username: string;
     fullName: string;
     isVerified: boolean;
+    pagePermissions: {
+      admin: [string] | [];
+      user: [string] | [];
+    };
   }
 }
