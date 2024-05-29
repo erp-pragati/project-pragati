@@ -23,13 +23,15 @@ export default function Page() {
   return (
     <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
       <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl">User Master</h1>
+        <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight first:mt-0">
+          User Master
+        </h1>
       </div>
       <div
         x-chunk="An empty state showing no products with a heading, description and a call to action to add a product."
         className="flex flex-1 justify-center rounded-lg border border-dashed shadow-sm"
       >
-        <div className="w-full">
+        <div className="w-full p-2">
           {!isLoading && <DataTable columns={columns} data={data.data} />}
         </div>
 

@@ -68,6 +68,9 @@ function VerifyCodePage() {
     repeatPassword: null
   };
 
+  // if (searchParams.get("verifyCode").length == 6) {
+  //   setOtp(searchParams.get("verifyCode") || "");
+  // }
   // Define the Query to check if the username needs to be verified
   const {
     data: data_0,
@@ -79,16 +82,19 @@ function VerifyCodePage() {
     enabled: searchParams.has("username")
   });
 
+  // if (!isLoading_0 && data_0?.message == "Verification code match") {
+  //   setOtp(searchParams.get("verifyCode") || "");
+  // }
   // Define the Query that runs when OTP needs to be checked
-  const {
-    data: data_1,
-    error: error_1,
-    isLoading: isLoading_1
-  } = useQuery({
-    queryKey: ["verify-code", searchParams.get("username"), otp, inputObject],
-    queryFn: () => sendVerificationData(inputObject),
-    enabled: otp.length === 6
-  });
+  // const {
+  //   data: data_1,
+  //   error: error_1,
+  //   isLoading: isLoading_1
+  // } = useQuery({
+  //   queryKey: ["verify-code", searchParams.get("username"), otp, inputObject],
+  //   queryFn: () => sendVerificationData(inputObject),
+  //   enabled: otp.length === 6
+  // });
 
   // Define the form using "react-hook-form"
   const form = useForm<z.infer<typeof verifyCodeSchema>>({
@@ -103,6 +109,9 @@ function VerifyCodePage() {
 
   useEffect(() => {
     if (data_0?.success) form.setValue("username", data_0.data.username);
+    if (data_0?.message == "Verification code match" && otp.length != 6) {
+      form.setValue("verifyCode", searchParams.get("verifyCode"));
+    }
   }, [data_0, form]);
 
   // Define the Query to submit the sign up data
@@ -212,8 +221,8 @@ function VerifyCodePage() {
                         <InputOTP
                           maxLength={6}
                           disabled={
-                            isLoading_1 ||
-                            data_1?.message == "Verification code match"
+                            isLoading_0 ||
+                            data_0?.message == "Verification code match"
                           }
                           {...field}
                           value={field.value || ""}
@@ -242,13 +251,13 @@ function VerifyCodePage() {
                     </FormItem>
                   )}
                 />
-                {isLoading_1 && (
+                {isLoading_0 && (
                   <div className="flex items-center justify-center">
                     <Loader2 className="animate-spin" size={40} />
                   </div>
                 )}
-                {!isLoading_1 &&
-                  data_1?.message == "Verification code match" && (
+                {!isLoading_0 &&
+                  data_0?.message == "Verification code match" && (
                     <section className="space-y-4">
                       <Separator className="my-4" />
                       <FormField
@@ -292,7 +301,7 @@ function VerifyCodePage() {
                         )}
                       />
                       <div>
-                        <Button type="submit" className="w-full mt-4">
+                        <Button type="submit" className="mt-4 w-full">
                           {submitForm.isPending ? (
                             <Loader2 className="animate-spin" size={20} />
                           ) : (

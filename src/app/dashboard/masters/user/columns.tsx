@@ -1,5 +1,5 @@
 "use client";
-
+import { CircleCheck, CircleX } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 
 // This type is used to define the shape of our data.
@@ -31,7 +31,10 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "isVerified",
-    header: "Verified?"
+    header: "Verified?",
+    cell: ({ getValue }) => {
+      return getValue() ? <CircleCheck /> : <CircleX />;
+    }
   },
   {
     accessorKey: "verifyDateTime",
